@@ -10,11 +10,12 @@ TABLE_COL_NAME = 'emp_name'
 MAX_EMPLOYEES = 10
 
 with sq.connect(DATABASE_NAME) as conn:
-    SQL = F'''CREATE TABLE IS NOT EXISTS {TABLE_NAME}
+    SQL = F'''CREATE TABLE IF NOT EXISTS {TABLE_NAME}
     (
-            {TABLE_COL_ID} INTEGER PRIMARY KEY
+            {TABLE_COL_ID} INTEGER PRIMARY KEY AUTOINCREMENT,
             {TABLE_COL_NAME} TEXT NOT NULL UNIQUE
     );'''
+
     curr = conn.cursor()
     curr.execute(SQL)
     conn.commit()
@@ -25,8 +26,9 @@ with sq.connect(DATABASE_NAME) as conn:
 
     employees_list = [(faker.first_name(),)\
                       for each in range(MAX_EMPLOYEES)]
-    SQL = f'''INSERT INTO {TABLE_NAME} ({TABLE_COL_NAME}
+    SQL = f'''INSERT INTO {TABLE_NAME} ({TABLE_COL_NAME})
             VALUES(?);'''
+    
     curr.executemany(SQL, employees_list)
     conn.commit()
 
