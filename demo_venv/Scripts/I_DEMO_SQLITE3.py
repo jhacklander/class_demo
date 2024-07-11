@@ -15,3 +15,5 @@ with sq.connect(DATABASE_NAME) as conn:
             {TABLE_COL_ID} INTEGER PRIMARY KEY
             {TABLE_COL_NAME} TEXT NOT NULL UNIQUE
     );'''
+    curr = conn.cursor()
+    curr.execute(SQL)
