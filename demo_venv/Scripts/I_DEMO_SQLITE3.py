@@ -17,3 +17,26 @@ with sq.connect(DATABASE_NAME) as conn:
     );'''
     curr = conn.cursor()
     curr.execute(SQL)
+    conn.commit()
+
+    print(f"Table created: {TABLE_NAME}")
+
+    faker = Faker()
+
+    employees_list = [(faker.first_name(),)\
+                      for each in range(MAX_EMPLOYEES)]
+    SQL = f'''INSERT INTO {TABLE_NAME} ({TABLE_COL_NAME}
+            VALUES(?);'''
+    curr.executemany(SQL, employees_list)
+    conn.commit()
+
+    print(f"{MAX_EMPLOYEES} rows were written to {TABLE_NAME}")
+
+    SQL = F'''SELECT {TABLE_COL_ID}, 
+        {TABLE_COL_NAME} FROM {TABLE_NAME}'''
+    
+    result = curr.execute(SQL)
+    HEADERS = ['ID', 'EMP_NAME']
+    print(tabulate(result,headers=HEADERS))
+
+    curr.close()
