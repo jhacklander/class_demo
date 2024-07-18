@@ -7,6 +7,13 @@ conn_parm = dotenv_values(".env")
 #     print(f'Key: {k} Value: {v}')
 conn = mariadb.connect(**conn_parm)
 with conn.cursor() as tables:
-    SQL = '''SHOW DATABASES;'''
+    SQL = '''SELECT dept_id_pk 'ID',
+            dept_name 'DEPT',
+            dept_description,
+            dept_description,
+            dept_is_active 'ACTIVE'
+            FROM tb_dept
+            ORDER BY dept_name;   
+            '''
     tables.execute(SQL)
     print(tabulate(tables, headers=['DATABASES'], tablefmt = 'fancy_grid'))

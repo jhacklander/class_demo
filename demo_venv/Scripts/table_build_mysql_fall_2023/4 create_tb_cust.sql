@@ -1,0 +1,14 @@
+#8-20-22
+USE db_sql_fall_2023;
+
+
+CREATE TABLE tb_cust
+(
+	cust_id_pk int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	cust_name varchar(50) NOT NULL UNIQUE,
+	cust_hold bit NOT NULL DEFAULT 0,
+	cust_create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	cust_notes text NULL
+)AUTO_INCREMENT=1000;
+SHOW TABLES;
+
