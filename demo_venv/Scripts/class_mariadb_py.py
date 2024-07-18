@@ -8,10 +8,10 @@ conn_parm = dotenv_values(".env")
 #     print(f'Key: {k} Value: {v}')
 conn = mariadb.connect(**conn_parm)
 with conn.cursor() as tables:
-    data = ("Research and Development", "Research new product")
+    data = ("Widget", "Widget Makers", 0)
     tb1 = "tb_dept"
-    col = "dept_name, dept_description"
-    SQL = f'''INSERT INTO {tb1} ({col}) VALUE (?, ?);'''
+    col = "dept_name, dept_description, dept_is_active"
+    SQL = f'''INSERT INTO {tb1} ({col}) VALUE (?, ?, ?);'''
     print(SQL)
     try:
         tables.execute(SQL, data=data)
