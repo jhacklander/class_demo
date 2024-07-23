@@ -6,6 +6,7 @@ from sys import exit
 conn_parm = dotenv_values(".env")
 # for k, v in conn_parm.items():
 #     print(f'Key: {k} Value: {v}')
+print(conn_parm)
 conn = mariadb.connect(**conn_parm)
 with conn.cursor() as tables:
     data = ("Widget", "Widget Makers", 0)
