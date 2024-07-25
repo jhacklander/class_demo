@@ -1,4 +1,4 @@
-import pymysql.cursors
+import pymysql
 from dotenv import load_dotenv
 from os import environ
 
