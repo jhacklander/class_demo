@@ -28,14 +28,20 @@ for _ in range(10):
 # Commit the changes
 conn.commit()
 
-# Retrieve and display the data
-cursor.execute('SELECT * FROM users')
-rows = cursor.fetchall()
+# Create a view for active users
+cursor.execute('''
+CREATE VIEW active_users AS
+SELECT * FROM users WHERE active = 1
+''')
+
+# Retrieve and display the active users from the view
+cursor.execute('SELECT * FROM active_users')
+active_rows = cursor.fetchall()
 headers = [description[0] for description in cursor.description]
 
 # Display the table using tabulate
-print(tabulate(rows, headers, tablefmt='grid'))
+print("Active Users:")
+print(tabulate(active_rows, headers, tablefmt='grid'))
 
 # Close the connection
 conn.close()
-
